@@ -84,7 +84,7 @@
       <div class="ring1"></div><div class="ring2"></div>
       <img id="alienImg" src="" alt="" />
       <div class="portrait" id="portrait"><span id="emoji">🔥</span></div>
-      <button class="refresh-btn" onclick="nextAlien()">NEXT &#9654;</button>
+      <button class="refresh-btn" onclick="location.reload()">NEW ALIEN &#8635;</button>
       <div class="idx-badge" id="idxBadge">01/24</div>
     </div>
     <div class="info-col">
@@ -201,7 +201,7 @@
      emoji:"☢️",clr:"#76FF03,#1B5E20",s:"ov"}
   ];
 
-  var REFRESH=5000, idx=Math.floor(Math.random()*A.length), timer;
+  var idx=Math.floor(Math.random()*A.length);
 
   function clk(){
     var n=new Date();
@@ -209,10 +209,6 @@
     document.getElementById("date").textContent=n.toLocaleDateString("en-US",{weekday:"short",day:"numeric",month:"short"});
   }
   clk();setInterval(clk,1000);
-
-  function next(){idx=(idx+1)%A.length;render();reset();}
-  function prev(){idx=(idx-1+A.length)%A.length;render();reset();}
-  function reset(){clearInterval(timer);timer=setInterval(next,REFRESH);}
 
   function render(){
     var a=A[idx];
@@ -256,18 +252,10 @@
     sp.textContent=a.s==="og"?"ORIGINAL SERIES":a.s==="af"?"ALIEN FORCE":"OMNIVERSE";
 
     document.getElementById("updated").textContent="UPDATED: "+new Date().toLocaleTimeString("en-US",{hour12:true});
-    document.getElementById("hint").textContent="Click anywhere for next alien";
+    document.getElementById("hint").textContent="Refresh the page for a new alien";
   }
 
-  document.getElementById("page").addEventListener("click",function(e){
-    if(e.target.tagName==="BUTTON")return;next();
-  });
-  document.addEventListener("keydown",function(e){
-    if(e.key===" "||e.key==="ArrowRight"){e.preventDefault();next();}
-    if(e.key==="ArrowLeft"){e.preventDefault();prev();}
-  });
-
-  render();reset();
+  render();
 })();
 </script>
 </body>
